@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import toast from 'react-hot-toast'
 
 const Register = () => {
     const [formData, setFormData] = useState({
+        name: '',
         email: '',
         password: '',
         confirmPassword: ''
     })
+    const router = useRouter()
+
+    const [error, setError] = useState<string | null>(null)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -17,10 +23,45 @@ const Register = () => {
         }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // Form submission logic will be added here
-        console.log(formData)
+        setError(null)
+
+        if (formData.password !== formData.confirmPassword) {
+            setError('Şifreler eşleşmiyor')
+            return
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/register', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                    name: formData.name
+                })
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Kayıt işlemi başarısız')
+            }
+
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('user', JSON.stringify(data.user))
+
+
+            router.push('/')
+            toast.success('Kayıt başarılı! Giriş yapılıyor...')
+
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Bir hata oluştu')
+        }
     }
 
     const containerVariants = {
@@ -65,6 +106,18 @@ const Register = () => {
                     </motion.p>
 
                     <form className="space-y-6" onSubmit={handleSubmit}>
+                        <motion.div variants={itemVariants}>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                required
+                                className="appearance-none rounded-full relative block w-full px-6 py-3 border border-neutral-300 placeholder-neutral-400 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                                placeholder="Ad ve Soyad"
+                                value={formData.name}
+                                onChange={handleChange}/>
+                        </motion.div>
+
                         <motion.div variants={itemVariants}>
                             <input
                                 id="email"
@@ -123,6 +176,17 @@ const Register = () => {
                             Giriş Yap
                         </Link>
                     </motion.p>
+
+                    {error && (
+                        <motion.p
+                            className="mt-4 text-red-500 text-sm"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                        >
+                            {error}
+                        </motion.p>
+                    )}
+
                 </motion.div>
 
                 <motion.div
