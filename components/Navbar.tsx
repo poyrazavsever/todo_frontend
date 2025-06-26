@@ -6,9 +6,9 @@ const Navbar = () => {
         <nav className="bg-white">
             <div className="w-full py-3 flex justify-between items-center">
                 <div className="space-x-4">
-                    <button className="px-4 py-1 rounded-full bg-pink-600 text-white text-sm hover:bg-pink-700 transition-colors cursor-pointer font-medium">
+                    <a href='/register' className="px-4 py-1 rounded-full bg-pink-600 text-white text-sm hover:bg-pink-700 transition-colors cursor-pointer font-medium">
                         Kayıt Ol
-                    </button>
+                    </a >
                 </div>
                 <div className="w-16 h-16">
                     <DotLottieReact
