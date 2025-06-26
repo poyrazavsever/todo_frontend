@@ -196,7 +196,7 @@ const Register = () => {
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?q=80&w=1000"
+                        src="/auth.jpg"
                         alt="Register illustration"
                         width={600}
                         height={600}

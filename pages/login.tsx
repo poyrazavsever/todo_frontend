@@ -118,7 +118,7 @@ const Login = () => {
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000"
+                        src="/auth.jpg"
                         alt="Login illustration"
                         width={600}
                         height={600}
