@@ -42,7 +42,7 @@ const Login = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-pink-50 to-white flex items-center justify-center p-4">
+        <div className="font-nunito min-h-screen bg-gradient-to-br from-pink-50 to-white flex items-center justify-center p-4">
             <div className="w-full max-w-6xl flex items-center justify-between gap-5 sm:gap-36">
                 <motion.div
                     className="flex-1"
