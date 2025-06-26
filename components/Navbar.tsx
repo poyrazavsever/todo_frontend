@@ -5,7 +5,9 @@ const Navbar = () => {
     return (
         <nav className="bg-white">
             <div className="w-full py-3 flex justify-between items-center">
-                <div className="space-x-4">
+                
+                <div className="flex items-center gap-4">
+                    <a href='/' className='font-semibold text-lg text-pink-600'>Birdy<span className='text-neutral-800'>Birdy</span></a>
                     <a href='/register' className="px-4 py-1 rounded-full bg-pink-600 text-white text-sm hover:bg-pink-700 transition-colors cursor-pointer font-medium">
                         Kayıt Ol
                     </a >
