@@ -67,7 +67,7 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo }) => {
             {isOpen && (
                 <>
                     <motion.div
-                        className="fixed inset-0 bg-black/30 z-40"
+                        className="fixed inset-0 bg-pink-950/30 z-40"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
