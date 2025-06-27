@@ -3,13 +3,15 @@ import TodoSidebar from './TodoSidebar'
 
 interface TodoCardProps {
     todo?: {
+        _id:string,
         title: string
         content: string
         category: string
     }
+    onUpdate: () => void
 }
 
-const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
+const TodoCard: React.FC<TodoCardProps> = ({ todo, onUpdate }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
     return (
@@ -44,6 +46,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
                 isOpen={isSidebarOpen}
                 onClose={() => setIsSidebarOpen(false)}
                 todo={todo}
+                onUpdate={onUpdate}
             />
         </>
     )

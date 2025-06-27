@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Variants } from 'framer-motion'
-import { format } from 'date-fns'
-import { tr } from 'date-fns/locale'
+import toast from 'react-hot-toast'
 
 interface TodoSidebarProps {
     isOpen: boolean
     onClose: () => void
     todo?: {
+        _id: string
         title: string
         content: string
         category: string
         createdAt?: Date
     }
+    onUpdate: () => void
 }
 
-const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo }) => {
+const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpdate }) => {
     const [formData, setFormData] = useState({
         title: todo?.title || '',
         content: todo?.content || '',
@@ -59,6 +60,80 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo }) => {
             transition: {
                 duration: 0.3
             }
+        }
+    }
+
+    const handleUpdate = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/todo/${todo?._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(formData)
+            })
+
+            if (!response.ok) {
+                throw new Error('Todo güncellenemedi')
+            }
+
+            toast.success('Todo güncellendi!')
+            onUpdate?.()
+            onClose()
+        } catch (error) {
+            console.error('Update error:', error)
+            toast.error('Todo güncellenirken bir hata oluştu')
+        }
+    }
+
+    const handleComplete = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/todo/${todo?._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            })
+
+            if (!response.ok) {
+                throw new Error('Todo tamamlanamadı')
+            }
+
+            toast.success('Todo tamamlandı!')
+            onUpdate?.()
+            onClose()
+        } catch (error) {
+            console.error('Complete error:', error)
+            toast.error('Todo tamamlanırken bir hata oluştu')
+        }
+    }
+
+    const handleDelete = async () => {
+        if (!window.confirm('Bu todoyu silmek istediğinize emin misiniz?')) {
+            return
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/todo/${todo?._id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            })
+
+            if (!response.ok) {
+                throw new Error('Todo silinemedi')
+            }
+
+            toast.success('Todo silindi!')
+            onUpdate?.()
+            onClose()
+        } catch (error) {
+            console.error('Delete error:', error)
+            toast.error('Todo silinirken bir hata oluştu')
         }
     }
 
@@ -130,16 +205,19 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo }) => {
                                 className="flex gap-3 pt-4"
                             >
                                 <button
+                                    onClick={handleUpdate}
                                     className="flex-1 py-2 px-4 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-all transform hover:scale-105"
                                 >
                                     Düzenle
                                 </button>
                                 <button
+                                    onClick={handleComplete}
                                     className="flex-1 py-2 px-4 rounded-full bg-green-600 text-white hover:bg-green-700 transition-all transform hover:scale-105"
                                 >
                                     Tamamlandı
                                 </button>
                                 <button
+                                    onClick={handleDelete}
                                     className="flex-1 py-2 px-4 rounded-full bg-red-600 text-white hover:bg-red-700 transition-all transform hover:scale-105"
                                 >
                                     Sil
