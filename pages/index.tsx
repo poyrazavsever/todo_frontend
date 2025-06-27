@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import TodoCard from '@/components/TodoCard';
 import Layout from '../components/Layout';
 import toast from 'react-hot-toast';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import classNames from 'classnames';
 
 type Todo = {
@@ -90,7 +90,6 @@ export default function Home() {
   return (
     <Layout>
       <div className="w-full max-w-4xl mx-auto py-8">
-
         {/* Tab Bar */}
         <div className="flex gap-4 mb-8">
           <button
@@ -98,8 +97,8 @@ export default function Home() {
             className={classNames(
               'px-6 py-2 rounded-full font-medium transition-all',
               {
-                'bg-pink-600 text-white': activeTab === 'active',
-                'bg-pink-100 text-pink-600 hover:bg-pink-200': activeTab !== 'active'
+                'bg-pink-600 dark:bg-pink-500 text-white': activeTab === 'active',
+                'bg-pink-100 text-pink-600 hover:bg-pink-200 dark:bg-pink-900 dark:text-pink-400 dark:hover:bg-pink-800': activeTab !== 'active'
               }
             )}
           >
@@ -110,8 +109,8 @@ export default function Home() {
             className={classNames(
               'px-6 py-2 rounded-full font-medium transition-all',
               {
-                'bg-green-600 text-white': activeTab === 'completed',
-                'bg-green-100 text-green-600 hover:bg-green-200': activeTab !== 'completed'
+                'bg-green-600 dark:bg-green-500 text-white': activeTab === 'completed',
+                'bg-green-100 text-green-600 hover:bg-green-200 dark:bg-green-900 dark:text-green-400 dark:hover:bg-green-800': activeTab !== 'completed'
               }
             )}
           >
@@ -142,7 +141,7 @@ export default function Home() {
             {filteredTodos.length === 0 && (
               <motion.p
                 variants={itemVariants}
-                className="col-span-2 text-center text-neutral-500 py-8"
+                className="col-span-2 text-center text-neutral-500 dark:text-neutral-400 py-8"
               >
                 {activeTab === 'active'
                   ? 'Aktif todo bulunmuyor'
