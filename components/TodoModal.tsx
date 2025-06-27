@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import toast from 'react-hot-toast'
+import { jwtDecode } from 'jwt-decode'
 
 interface TodoModalProps {
     isOpen: boolean;
@@ -13,6 +15,8 @@ const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose }) => {
         category: ''
     })
 
+    const [error, setError] = useState<string | null>(null)
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
         setFormData(prev => ({
@@ -21,11 +25,65 @@ const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose }) => {
         }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // TODO: Add submission logic
-        console.log(formData)
-        onClose()
+        setError(null)
+
+        const token = localStorage.getItem('token')
+        let userId
+
+        try {
+            if (!token) {
+                throw new Error('Kullanıcı oturumu bulunamadı')
+            }
+
+            const user = localStorage.getItem('user')
+            if (!user) {
+                throw new Error('Kullanıcı bilgileri bulunamadı')
+            }
+
+            const decodedToken = jwtDecode<{ userId: string }>(token)
+            userId = decodedToken.userId
+
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Bir hata oluştu')
+            return
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/api/todo', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: formData.title,
+                    content: formData.content,
+                    category: formData.category,
+                    userId: userId
+                })
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Todonu Ekleyemedim...')
+            }
+
+            toast.success('Todo başarıyla eklendi!')
+
+            onClose()
+
+            setFormData({
+                title: '',
+                content: '',
+                category: ''
+            })
+
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Bir hata oluştu')
+        }
     }
 
     const modalVariants = {
@@ -134,6 +192,9 @@ const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose }) => {
                                     Kaydet
                                 </button>
                             </div>
+                            {error && (
+                                <p className="mt-4 text-pink-500 text-sm text-center">{error}</p>
+                            )}
                         </form>
                     </motion.div>
                 </>
