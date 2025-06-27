@@ -1,40 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# BirdyBirdy Todo Uygulaması
 
-## Getting Started
+Modern web teknolojilerini öğrenme sürecimde geliştirdiğim bir todo uygulaması. Bu proje, özellikle NestJS backend framework'ünü öğrenme amacıyla geliştirildi ve modern frontend teknolojilerini de içeriyor.
 
-First, run the development server:
+## Teknolojiler
 
+### Frontend
+- **Next.js**: React framework'ü üzerine kurulu, sayfa yönlendirme ve SSR özellikleri için
+- **TypeScript**: Tip güvenliği ve daha iyi kod organizasyonu için
+- **Tailwind CSS**: Modern ve responsive tasarım için
+- **Framer Motion**: Akıcı animasyonlar ve geçişler için
+- **React Hot Toast**: Kullanıcı bildirimleri için
+- **JWT**: Kullanıcı kimlik doğrulama için
+
+### Backend
+- **NestJS**: Modern ve ölçeklenebilir backend mimarisi
+- **MongoDB**: Veritabanı çözümü
+- **JWT**: Token tabanlı kimlik doğrulama
+
+## Özellikler
+
+### Kullanıcı İşlemleri
+- Kayıt olma ve giriş yapma
+- JWT tabanlı oturum yönetimi
+- Kullanıcıya özel todo listesi
+
+### Todo İşlemleri
+- Todo oluşturma, düzenleme ve silme
+- Kategorilere göre todo'ları düzenleme
+- Todo'ları tamamlandı/tamamlanmadı olarak işaretleme
+- Aktif ve tamamlanan todo'ları ayrı listeleme
+
+### Tasarım ve Kullanıcı Deneyimi
+- Tam responsive tasarım
+- Koyu/açık tema desteği
+- Akıcı animasyonlar ve geçişler
+- Kullanıcı dostu arayüz
+- Modern ve minimal tasarım
+- Toast bildirimleri ile kullanıcı etkileşimi
+
+## Kurulum
+
+1. Projeyi klonlayın
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [repo-url]
+cd frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Bağımlılıkları yükleyin
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+3. Geliştirme sunucusunu başlatın
+```bash
+pnpm dev
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+4. Tarayıcınızda açın
+```
+http://localhost:3000
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## Ortam Değişkenleri
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`.env` dosyasında aşağıdaki değişkenleri tanımlayın:
 
-## Learn More
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Proje Yapısı
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+```
+frontend/
+├── components/         # Yeniden kullanılabilir bileşenler
+├── pages/             # Sayfa bileşenleri
+├── public/            # Statik dosyalar
+├── styles/            # CSS dosyaları
+└── types/             # TypeScript tip tanımlamaları
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Önemli Bileşenler
 
-## Deploy on Vercel
+- `TodoCard`: Todo kartı bileşeni
+- `TodoModal`: Yeni todo ekleme modalı
+- `TodoSidebar`: Todo düzenleme kenar çubuğu
+- `Navbar`: Gezinme ve tema değiştirme çubuğu
+- `Layout`: Sayfa düzeni wrapper bileşeni
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Öğrenme Hedefleri
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Bu proje, aşağıdaki teknolojileri ve konseptleri öğrenmek için geliştirildi:
+
+### Backend (NestJS)
+- MVC mimarisi
+- Dependency Injection
+- Decorators kullanımı
+- MongoDB ile veritabanı işlemleri
+- JWT implementasyonu
+- REST API geliştirme
+
+### Frontend
+- Next.js ile sayfa yönlendirme
+- TypeScript ile tip güvenli geliştirme
+- Tailwind CSS ile modern tasarım
+- Tema değiştirme implementasyonu
+- Form validasyonları
+- API entegrasyonu
+- Animasyon ve geçişler
+
+## Gelecek Özellikler
+
+- [ ] Todo'lar için deadline ekleme
+- [ ] Todo'ları sürükle-bırak ile sıralama
+- [ ] Todo'ları paylaşma
+- [ ] Takvim görünümü
+- [ ] Bildirim sistemi
+- [ ] Todo'lara dosya ekleme
+- [ ] Etiket sistemi
+
+## Katkıda Bulunma
+
+1. Bu depoyu fork edin
+2. Feature branch oluşturun (`git checkout -b feature/yeniOzellik`)
+3. Değişikliklerinizi commit edin (`git commit -am 'Yeni özellik: X'`)
+4. Branch'inizi push edin (`git push origin feature/yeniOzellik`)
+5. Pull Request oluşturun
+
+## Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır.
