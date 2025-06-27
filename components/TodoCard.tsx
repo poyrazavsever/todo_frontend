@@ -14,13 +14,16 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
 
     return (
         <>
-            <div className='flex flex-col gap-2 py-4 px-6 rounded-md border border-pink-600 bg-pink-500/5 w-sm'>
+            <div className='flex flex-col justify-between gap-2 py-4 px-6 rounded-md border border-pink-600 bg-pink-500/5 w-full'>
+
                 <h2 className="text-xl font-bold text-neutral-700">
                     {todo?.title || "Todo Title"}
                 </h2>
-                <p className="text-neutral-500 line-clamp-2">
+
+                <p className="text-neutral-500 line-clamp-2 break-words">
                     {todo?.content || "Lorem ipsum dolor sit amet consectetur adipisicing elit..."}
                 </p>
+
                 <div className='flex items-center justify-between mt-2'>
                     <span className='text-sm py-1 px-2 rounded-full bg-pink-600 text-white'>
                         {todo?.category || "Category"}
@@ -34,6 +37,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
                         </svg>
                     </button>
                 </div>
+
             </div>
 
             <TodoSidebar
