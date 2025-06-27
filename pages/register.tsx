@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -13,8 +13,16 @@ const Register = () => {
     })
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-
     const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+        if (token && user) {
+            toast.error('Zaten giriş yaptınız!')
+            router.replace('/');
+        }
+    }, [router]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
