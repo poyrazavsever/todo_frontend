@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.14.2",
+    "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.19.1",
     "next": "15.3.4",

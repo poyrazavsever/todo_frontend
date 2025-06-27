@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import toast from 'react-hot-toast'
+import classNames from 'classnames'
 
 interface TodoSidebarProps {
     isOpen: boolean
@@ -11,7 +12,7 @@ interface TodoSidebarProps {
         title: string
         content: string
         category: string
-        createdAt?: Date
+        completed: boolean
     }
     onUpdate: () => void
 }
@@ -22,6 +23,8 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
         content: todo?.content || '',
         category: todo?.category || ''
     })
+
+    const [completed, setCompleted] = useState(todo?.completed || false)
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -102,6 +105,7 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
             }
 
             toast.success('Todo tamamlandı!')
+            setCompleted(!completed)
             onUpdate?.()
             onClose()
         } catch (error) {
@@ -212,9 +216,15 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
                                 </button>
                                 <button
                                     onClick={handleComplete}
-                                    className="flex-1 py-2 px-4 rounded-full bg-green-600 text-white hover:bg-green-700 transition-all transform hover:scale-105"
+                                    className={classNames(
+                                        'flex-1 py-2 px-4 rounded-full transition-all transform',
+                                        {
+                                            'bg-green-600 text-white hover:bg-green-700': !completed,
+                                            'bg-gray-200 text-gray-600 hover:bg-gray-300': completed,
+                                        }
+                                    )}
                                 >
-                                    Tamamlandı
+                                    {completed ? 'Geri Al' : 'Tamamla'}
                                 </button>
                                 <button
                                     onClick={handleDelete}
