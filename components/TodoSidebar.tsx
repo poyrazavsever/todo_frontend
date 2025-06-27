@@ -146,14 +146,14 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
             {isOpen && (
                 <>
                     <motion.div
-                        className="fixed inset-0 bg-pink-950/30 z-40"
+                        className="fixed inset-0 bg-pink-950/30 dark:bg-pink-950/50 z-40"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
                     />
                     <motion.div
-                        className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-lg z-50 p-8 overflow-y-auto"
+                        className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-neutral-900 shadow-lg z-50 p-8 overflow-y-auto"
                         variants={sidebarVariants}
                         initial="hidden"
                         animate="visible"
@@ -161,7 +161,7 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
                     >
                         <div className="font-nunito space-y-6">
                             <motion.h2
-                                className="text-3xl font-bold text-pink-600"
+                                className="text-3xl font-bold text-pink-600 dark:text-pink-500"
                                 variants={itemVariants}
                                 initial="hidden"
                                 animate="visible"
@@ -176,7 +176,7 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
                                     value={formData.title}
                                     onChange={handleChange}
                                     placeholder="Başlık"
-                                    className="appearance-none rounded-full relative block w-full px-6 py-3 border border-neutral-300 placeholder-neutral-400 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                                    className="appearance-none rounded-full relative block w-full px-6 py-3 border border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:placeholder-neutral-500 text-neutral-900 dark:text-white bg-white dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-400 focus:border-transparent transition-all"
                                 />
                             </motion.div>
 
@@ -187,7 +187,7 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
                                     onChange={handleChange}
                                     placeholder="İçerik"
                                     rows={4}
-                                    className="appearance-none rounded-2xl relative block w-full px-6 py-3 border border-neutral-300 placeholder-neutral-400 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all resize-none"
+                                    className="appearance-none rounded-2xl relative block w-full px-6 py-3 border border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:placeholder-neutral-500 text-neutral-900 dark:text-white bg-white dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-400 focus:border-transparent transition-all resize-none"
                                 />
                             </motion.div>
 
@@ -198,7 +198,7 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
                                     value={formData.category}
                                     onChange={handleChange}
                                     placeholder="Kategori"
-                                    className="appearance-none rounded-full relative block w-full px-6 py-3 border border-neutral-300 placeholder-neutral-400 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                                    className="appearance-none rounded-full relative block w-full px-6 py-3 border border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:placeholder-neutral-500 text-neutral-900 dark:text-white bg-white dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-400 focus:border-transparent transition-all"
                                 />
                             </motion.div>
 
@@ -210,7 +210,7 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
                             >
                                 <button
                                     onClick={handleUpdate}
-                                    className="flex-1 py-2 px-4 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-all transform hover:scale-105"
+                                    className="flex-1 py-2 px-4 rounded-full bg-pink-600 dark:bg-pink-500 text-white hover:bg-pink-700 dark:hover:bg-pink-600 transition-all transform hover:scale-105"
                                 >
                                     Düzenle
                                 </button>
@@ -219,8 +219,8 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
                                     className={classNames(
                                         'flex-1 py-2 px-4 rounded-full transition-all transform',
                                         {
-                                            'bg-green-600 text-white hover:bg-green-700': !completed,
-                                            'bg-gray-200 text-gray-600 hover:bg-gray-300': completed,
+                                            'bg-green-600 dark:bg-green-500 text-white hover:bg-green-700 dark:hover:bg-green-600': !completed,
+                                            'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600': completed,
                                         }
                                     )}
                                 >
@@ -228,7 +228,7 @@ const TodoSidebar: React.FC<TodoSidebarProps> = ({ isOpen, onClose, todo, onUpda
                                 </button>
                                 <button
                                     onClick={handleDelete}
-                                    className="flex-1 py-2 px-4 rounded-full bg-red-600 text-white hover:bg-red-700 transition-all transform hover:scale-105"
+                                    className="flex-1 py-2 px-4 rounded-full bg-red-600 dark:bg-red-500 text-white hover:bg-red-700 dark:hover:bg-red-600 transition-all transform hover:scale-105"
                                 >
                                     Sil
                                 </button>
