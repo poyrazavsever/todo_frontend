@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
     return (
-        <div className="max-w-4xl mx-auto min-h-screen flex flex-col font-nunito">
+        <div className="max-w-4xl mx-auto min-h-screen flex flex-col font-nunito text-neutral-900 dark:text-white transition-colors">
             <Toaster
                 position="top-right"
                 reverseOrder={false}
@@ -22,7 +22,7 @@ const Layout = ({ children }: LayoutProps) => {
                 }}
             />
             <Navbar />
-            <main className="flex-grow  w-full">
+            <main className="flex-1">
                 {children}
             </main>
             <Footer />
