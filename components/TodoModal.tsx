@@ -122,80 +122,106 @@ const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose }) => {
         <AnimatePresence>
             {isOpen && (
                 <>
+                    {/* Overlay */}
                     <motion.div
-                        className="fixed inset-0 bg-pink-950/30 z-40"
-                        variants={overlayVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.5 }}
+                        exit={{ opacity: 0 }}
                         onClick={onClose}
+                        className="fixed inset-0 bg-black z-40"
                     />
+
+                    {/* Modal */}
                     <motion.div
-                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white rounded-3xl p-8 z-50"
-                        variants={modalVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4"
                     >
-                        <h2 className="text-3xl font-bold text-pink-600 mb-6">
-                            Yeni Todo Ekle
-                        </h2>
-
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div>
-                                <input
-                                    type="text"
-                                    name="title"
-                                    placeholder="Başlık"
-                                    value={formData.title}
-                                    onChange={handleChange}
-                                    className="appearance-none rounded-full relative block w-full px-6 py-3 border border-neutral-300 placeholder-neutral-400 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                                    required
-                                />
-                            </div>
-
-                            <div>
-                                <textarea
-                                    name="content"
-                                    placeholder="İçerik"
-                                    value={formData.content}
-                                    onChange={handleChange}
-                                    className="appearance-none rounded-2xl relative block w-full px-6 py-3 border border-neutral-300 placeholder-neutral-400 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all min-h-[120px]"
-                                    required
-                                />
-                            </div>
-
-                            <div>
-                                <input
-                                    type="text"
-                                    name="category"
-                                    placeholder="Kategori"
-                                    value={formData.category}
-                                    onChange={handleChange}
-                                    className="appearance-none rounded-full relative block w-full px-6 py-3 border border-neutral-300 placeholder-neutral-400 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
-                                    required
-                                />
-                            </div>
-
-                            <div className="flex gap-4">
+                        <div className="bg-white dark:bg-neutral-900 rounded-lg shadow-xl w-full max-w-md p-6">
+                            <div className="flex justify-between items-center mb-6">
+                                <h2 className="text-2xl font-bold text-neutral-800 dark:text-white">
+                                    Yeni Todo
+                                </h2>
                                 <button
-                                    type="button"
                                     onClick={onClose}
-                                    className="flex-1 py-3 px-6 border border-pink-600 text-pink-600 font-medium rounded-full hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-all"
+                                    className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full transition-colors"
                                 >
-                                    İptal
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="flex-1 py-3 px-6 border border-transparent font-medium rounded-full text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-all"
-                                >
-                                    Kaydet
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-neutral-600 dark:text-neutral-400">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
                                 </button>
                             </div>
+
                             {error && (
-                                <p className="mt-4 text-pink-500 text-sm text-center">{error}</p>
+                                <div className="mb-4 p-3 rounded-md bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 text-sm">
+                                    {error}
+                                </div>
                             )}
-                        </form>
+
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div>
+                                    <label htmlFor="title" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                                        Başlık
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="title"
+                                        name="title"
+                                        value={formData.title}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 focus:border-pink-500 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 dark:focus:ring-pink-500/20 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-colors"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="content" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                                        İçerik
+                                    </label>
+                                    <textarea
+                                        id="content"
+                                        name="content"
+                                        value={formData.content}
+                                        onChange={handleChange}
+                                        rows={4}
+                                        className="w-full px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 focus:border-pink-500 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 dark:focus:ring-pink-500/20 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-colors resize-none"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="category" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                                        Kategori
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="category"
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 focus:border-pink-500 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 dark:focus:ring-pink-500/20 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-colors"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="pt-4 flex justify-end space-x-3 border-t border-neutral-200 dark:border-neutral-700">
+                                    <button
+                                        type="button"
+                                        onClick={onClose}
+                                        className="px-4 py-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-md transition-colors"
+                                    >
+                                        İptal
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="px-4 py-2 text-sm font-medium text-white bg-pink-600 dark:bg-pink-500 hover:bg-pink-700 dark:hover:bg-pink-600 rounded-md transition-colors"
+                                    >
+                                        Oluştur
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </motion.div>
                 </>
             )}
